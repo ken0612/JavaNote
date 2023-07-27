@@ -1,5 +1,8 @@
 public class Dog extends Animal implements Edible{
-    private String animalType = "Dog";
+
+    public Dog(String animalType,String animalName){
+        super(animalType,animalName);
+    }
 
     @Override
     public void makeSound(){
