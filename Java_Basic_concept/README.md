@@ -1,4 +1,4 @@
-# header Java 基本概念
+# Java 基本概念
 * Object(物件)
   當一個Class被實例化(instantiation)後稱之為物件，
   此時在記憶體中已經有實體位置。
