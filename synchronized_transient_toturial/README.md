@@ -51,3 +51,25 @@ public class Main{
 }
 
 ```
+***
+# Lock & Condition （互斥鎖）
+```java
+private static Lock lock = new ReentrantLock();
+private static Condition notEmpty = lock.newCondition();
+```
+## Condition
+* 若需要使用Condition，則必須與Lock掛鉤。
+```java
+public void tryExample(){
+    lock.lock();
+    notEmpty.await()
+    lock.unlock();
+    //使用Condition時，必定要使用lock
+}
+```
+* 使用```.await()```可以將現在所在的Thread進入凍結狀態。
+  此時將釋放鎖，也就是說被lock住的區間將會被解鎖，其中的資源可以被其他Thread調用，直至其他Thread透過.signalAll()將其喚醒。
+## Lock
+* Lock為一個物件，可用一個變數將其儲存。
+* 通常一個鎖只會有一把鑰匙，所以將Lock設定成static（靜態）較佳。
+* 設定Lock 是否為static與否，取決於設計需求。當一個Lock處於static狀態時，當該物件被重複創建時，會無法同時調用該Lock，直到其中一個Object解鎖後，另一個物件方可使用該Lock。反之如果Lock並非為static狀態，則物件被創立後，每個物件都有自己獨立的鎖，故不會導致Race condition的問題。
